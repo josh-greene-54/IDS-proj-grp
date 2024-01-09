@@ -1,0 +1,219 @@
+Country.Name ,class,GDPrange
+Afghanistan,L,<=995
+Albania,UM,3896-12055
+Algeria,UM,3896-12055
+American Samoa,UM,3896-12055
+Andorra,H,>12055
+Angola,LM,996-3895
+Antigua and Barbuda,H,>12055
+Argentina,H,>12055
+Armenia,UM,3896-12055
+Aruba,H,>12055
+Australia,H,>12055
+Austria,H,>12055
+Azerbaijan,UM,3896-12055
+"Bahamas, The",H,>12055
+Bahrain,H,>12055
+Bangladesh,LM,996-3895
+Barbados,H,>12055
+Belarus,UM,3896-12055
+Belgium,H,>12055
+Belize,UM,3896-12055
+Benin,L,<=995
+Bermuda,H,>12055
+Bhutan,LM,996-3895
+Bolivia,LM,996-3895
+Bosnia and Herzegovina,UM,3896-12055
+Botswana,UM,3896-12055
+Brazil,UM,3896-12055
+British Virgin Islands,H,>12055
+Brunei Darussalam,H,>12055
+Bulgaria,UM,3896-12055
+Burkina Faso,L,<=995
+Burundi,L,<=995
+Cabo Verde,LM,996-3895
+Cambodia,LM,996-3895
+Cameroon,LM,996-3895
+Canada,H,>12055
+Cayman Islands,H,>12055
+Central African Republic,L,<=995
+Chad,L,<=995
+Channel Islands,H,>12055
+Chile,H,>12055
+China,UM,3896-12055
+Colombia,UM,3896-12055
+Comoros,L,<=995
+"Congo, Dem. Rep.",L,<=995
+"Congo, Rep.",LM,996-3895
+Costa Rica,UM,3896-12055
+C™te d'Ivoire,LM,996-3895
+Croatia,H,>12055
+Cuba,UM,3896-12055
+Curaao,H,>12055
+Cyprus,H,>12055
+Czech Republic,H,>12055
+Denmark,H,>12055
+Djibouti,LM,996-3895
+Dominica,UM,3896-12055
+Dominican Republic,UM,3896-12055
+Ecuador,UM,3896-12055
+"Egypt, Arab Rep.",LM,996-3895
+El Salvador,LM,996-3895
+Equatorial Guinea,UM,3896-12055
+Eritrea,L,<=995
+Estonia,H,>12055
+Eswatini,LM,996-3895
+Ethiopia,L,<=995
+Faeroe Islands,H,>12055
+Fiji,UM,3896-12055
+Finland,H,>12055
+France,H,>12055
+French Polynesia,H,>12055
+Gabon,UM,3896-12055
+"Gambia, The",L,<=995
+Georgia,LM,996-3895
+Germany,H,>12055
+Ghana,LM,996-3895
+Gibraltar,H,>12055
+Greece,H,>12055
+Greenland,H,>12055
+Grenada,UM,3896-12055
+Guam,H,>12055
+Guatemala,UM,3896-12055
+Guinea,L,<=995
+Guinea-Bissau,L,<=995
+Guyana,UM,3896-12055
+Haiti,L,<=995
+Honduras,LM,996-3895
+"Hong Kong SAR, China",H,>12055
+Hungary,H,>12055
+Iceland,H,>12055
+India,LM,996-3895
+Indonesia,LM,996-3895
+"Iran, Islamic Rep.",UM,3896-12055
+Iraq,UM,3896-12055
+Ireland,H,>12055
+Isle of Man,H,>12055
+Israel,H,>12055
+Italy,H,>12055
+Jamaica,UM,3896-12055
+Japan,H,>12055
+Jordan,UM,3896-12055
+Kazakhstan,UM,3896-12055
+Kenya,LM,996-3895
+Kiribati,LM,996-3895
+"Korea, Dem. Rep.",L,<=995
+"Korea, Rep.",H,>12055
+Kosovo,LM,996-3895
+Kuwait,H,>12055
+Kyrgyz Republic,LM,996-3895
+Lao PDR,LM,996-3895
+Latvia,H,>12055
+Lebanon,UM,3896-12055
+Lesotho,LM,996-3895
+Liberia,L,<=995
+Libya,UM,3896-12055
+Liechtenstein,H,>12055
+Lithuania,H,>12055
+Luxembourg,H,>12055
+"Macao SAR, China",H,>12055
+Madagascar,L,<=995
+Malawi,L,<=995
+Malaysia,UM,3896-12055
+Maldives,UM,3896-12055
+Mali,L,<=995
+Malta,H,>12055
+Marshall Islands,UM,3896-12055
+Mauritania,LM,996-3895
+Mauritius,UM,3896-12055
+Mexico,UM,3896-12055
+"Micronesia, Fed. Sts.",LM,996-3895
+Moldova,LM,996-3895
+Monaco,H,>12055
+Mongolia,LM,996-3895
+Montenegro,UM,3896-12055
+Morocco,LM,996-3895
+Mozambique,L,<=995
+Myanmar,LM,996-3895
+Namibia,UM,3896-12055
+Nauru,UM,3896-12055
+Nepal,L,<=995
+Netherlands,H,>12055
+New Caledonia,H,>12055
+New Zealand,H,>12055
+Nicaragua,LM,996-3895
+Niger,L,<=995
+Nigeria,LM,996-3895
+North Macedonia,UM,3896-12055
+Northern Mariana Islands,H,>12055
+Norway,H,>12055
+Oman,H,>12055
+Pakistan,LM,996-3895
+Palau,H,>12055
+Panama,H,>12055
+Papua New Guinea,LM,996-3895
+Paraguay,UM,3896-12055
+Peru,UM,3896-12055
+Philippines,LM,996-3895
+Poland,H,>12055
+Portugal,H,>12055
+Puerto Rico,H,>12055
+Qatar,H,>12055
+Romania,UM,3896-12055
+Russian Federation,UM,3896-12055
+Rwanda,L,<=995
+Samoa,UM,3896-12055
+San Marino,H,>12055
+S‹o TomŽ and Pr’ncipe,LM,996-3895
+Saudi Arabia,H,>12055
+Senegal,L,<=995
+Serbia,UM,3896-12055
+Seychelles,H,>12055
+Sierra Leone,L,<=995
+Singapore,H,>12055
+Sint Maarten (Dutch part),H,>12055
+Slovak Republic,H,>12055
+Slovenia,H,>12055
+Solomon Islands,LM,996-3895
+Somalia,L,<=995
+South Africa,UM,3896-12055
+South Sudan,L,<=995
+Spain,H,>12055
+Sri Lanka,LM,996-3895
+St. Kitts and Nevis,H,>12055
+St. Lucia,UM,3896-12055
+St. Martin (French part),H,>12055
+St. Vincent and the Grenadines,UM,3896-12055
+Sudan,LM,996-3895
+Suriname,UM,3896-12055
+Sweden,H,>12055
+Switzerland,H,>12055
+Syrian Arab Republic,L,<=995
+"Taiwan, China",H,>12055
+Tajikistan,L,<=995
+Tanzania,L,<=995
+Thailand,UM,3896-12055
+Timor-Leste,LM,996-3895
+Togo,L,<=995
+Tonga,UM,3896-12055
+Trinidad and Tobago,H,>12055
+Tunisia,LM,996-3895
+TŸrkiye,UM,3896-12055
+Turkmenistan,UM,3896-12055
+Turks and Caicos Islands,H,>12055
+Tuvalu,UM,3896-12055
+Uganda,L,<=995
+Ukraine,LM,996-3895
+United Arab Emirates,H,>12055
+United Kingdom,H,>12055
+United States,H,>12055
+Uruguay,H,>12055
+Uzbekistan,LM,996-3895
+Vanuatu,LM,996-3895
+"Venezuela, RB",UM,3896-12055
+Vietnam,LM,996-3895
+Virgin Islands (U.S.),H,>12055
+West Bank and Gaza,LM,996-3895
+"Yemen, Rep.",L,<=995
+Zambia,LM,996-3895
+Zimbabwe,L,<=995

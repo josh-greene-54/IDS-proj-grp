@@ -1,4 +1,4 @@
-Time,Country Name,Population,GDP per capita,Life expectancy,Current health expenditure per gdp ,Current health expenditure per capita,Compulsory education duration ,Birth rate p1000,Death rate p1000
+Time,Country.Name,Population,GDP.per.capita,Life.expectancy,Current.health.expenditure.per.gdp ,Current.health.expenditure.per.capita,Compulsory.education.duration ,Birth.rate.p1000,Death.rate.p1000
 2017,Afghanistan,35643418,2096.093111,63.016,12.62081718,264.5439889,9,37.342,7.027
 2017,Albania,2873457,12771.05414,79.047,6.54604626,834.2807745,9,10.87,8.15
 2017,Algeria,41136546,11809.48303,75.743,6.27938414,741.5637574,10,24.755,4.542
