@@ -22,6 +22,15 @@ view(LE1)
 incomeclass<- read_csv("incomeclass.csv")
 view(incomeclass)
 
+#table of WB classifications
+tb_headers <- c("High Income", "Upper Middle Income", "Lower Middle Income", "Lower Income")
+tb_values <- c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
+class_table <- data.table(
+  Class = c("Low Income", "Lower Middle Income", "Upper Middle Income", "High Income"),
+  GNIperCapita = c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
+)
+class_table
+
 # take out NAs in the dataset 
 LE1 <- na.omit(LE1)
 sum(is.na(LE1$GDP.per.capita))
