@@ -10,7 +10,6 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(tidymodels)
-library(tidyr)
 library(modelr)
 #setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
 #read in country data  
