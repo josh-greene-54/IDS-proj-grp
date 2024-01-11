@@ -10,8 +10,11 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(tidymodels)
+library(tidyr)
 library(modelr)
-#setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
+library(rpart.plot)
+
+setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
 #read in country data  
 LE1<- read_csv("https://raw.githubusercontent.com/josh-greene-54/IDS-proj-grp/main/data/countrydata.csv", TRUE)
 view(LE1)
@@ -23,8 +26,6 @@ view(incomeclass)
 
 # take out NAs in the dataset 
 LE1 <- na.omit(LE1)
-sum(is.na(LE1$GDP.per.capita))
-sum(is.na(LE1$Current.health.expenditure.per.capita))
 
 
 # make all variables numeric 
@@ -84,7 +85,7 @@ cor(LE1$logGDP,LE1$logHCExpCapita, use = "complete.obs")
 ggplot(data = LE1) +
   geom_point(mapping = aes(x = Life.expectancy , y = logGDP)) +
   geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = logGDP), se=FALSE)+
-  ggtitle("                               Scatter Plot  life expectancy and logGDP")
+  ggtitle("                  Scatter Plot  life expectancy and logGDP")
 
 
 cor(LE1$Life.expectancy,LE1$logGDP, use = "complete.obs")
@@ -93,18 +94,17 @@ cor(LE1$Life.expectancy,LE1$logGDP, use = "complete.obs")
 ggplot(data = LE1) +
   geom_point(mapping = aes(x = Life.expectancy , y = Birth.rate.p1000)) +
   geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = Birth.rate.p1000), se=FALSE)+
-  ggtitle("                               Scatter Plot birth rate and life expectancy")
+  ggtitle("              Scatter Plot birth rate and life expectancy")
 
 cor(LE1$Life.expectancy,LE1$Birth.rate.p1000, use = "complete.obs")
 
 
 
 # lm model with summary of log GDP and Life expenctancy 
-edulm<-lm(LE1$logGDP~LE1$Life.expectancy)
+edulm<-lm(LE1$Life.expectancy~LE1$logGDP)
 edulm
 summary(edulm)
 plot(edulm)
-
 
 #use cook distance package to show the 61 and 64 outliers and their SD
 
@@ -119,9 +119,6 @@ boxplot(LE1$Life.expectancy)
 merged_df <- merge(incomeclass, LE1, by = "Country.Name")
 view(merged_df)
 
-#scatterplot of linear model between logGDP and life expectancy, color coordinated
-ggplot(merged_df, aes(logGDP, Life.expectancy)) + geom_point(aes(color = class)) + 
-  scale_color_manual(name='Class', breaks = c('High Income', 'Upper Middle Income', 'Lower Middle Income', 'Lower Income'), values = c('High Income' = 'pink', 'Upper Middle Income' = 'green', 'Lower Middle Income' = 'purple', 'Lower Income' = 'red'))
 
 
 # mutate class variable to long name and get rid of GDPrange
@@ -160,17 +157,15 @@ merged_df$pred
 ggplot(merged_df, aes(logGDP, resid)) + geom_point(aes(color = class)) + geom_hline(yintercept = 0, linetype = 2)
 summary(lm_out)
 
-#ANOVA test to check for independence of class means
+# t test H vs. L
+sample_list <- split(merged_df$GDP.per.capita, merged_df$class)
+group_H <- sample_list$`High Income`
+group_L <- sample_list$`Lower Income`
+t.test(group_H, group_L)
+
+#anova test 
 anova_result <- aov(logGDP ~ class, data = merged_df)
 summary(anova_result)
-
-#tukeyHSD to corroborate ANOVA + plot
-TukeyHSD(anova_result, conf.level=.95)
-plot(TukeyHSD(anova_result, conf.level=.95), las = 2)
-
-#test classes for correlation with life expectancy
-lm_class <- lm(Life.expectancy ~ class - 1, data = merged_df)
-summary(lm_class)
 
 
 # multiple linear regression exploration
@@ -216,12 +211,43 @@ predictions <- predict(trained_model, new_data = test_data)
 print(predictions)
 
 # try a logGDP prediction 
-new_data <- data.frame(logGDP = 11)
-new_predictions <- predict(trained_model, new_data)
+#new_data <- data.frame(logGDP = 11)
+#new_predictions <- predict(trained_model, new_data)
+#GDP<-exp(new_data)
+#GDP
 
 #show decision tree
-print(new_predictions)
-rpart.plot(trained_model$fit)
+#print(new_predictions)
+
+#visualize tree
+rpart.plot(trained_model$fit, roundint = FALSE)
+
+
+predict_gdp <- function(trained_model, log_gdp_value) {
+  new_data <- data.frame(logGDP=log_gdp_value)
+  new_predictions <- predict(trained_model, new_data)
+  new_predictions <- as.numeric(new_predictions[[1]])
+  GDP <- exp(log_gdp_value)
+  cat(" Countrys GDP", GDP, "\n")
+  cat( "Average life expectancy" ,new_predictions, "\n")
+  return(list(GDP=GDP, Predictions=new_predictions ))
+}
+log_gdp_value <- 2
+new_data <- data.frame(log_gdp_value)
+predicted_gdp <- predict_gdp(trained_model, log_gdp_value)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
