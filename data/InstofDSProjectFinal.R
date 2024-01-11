@@ -22,15 +22,6 @@ view(LE1)
 incomeclass<- read_csv("incomeclass.csv")
 view(incomeclass)
 
-#table of WB classifications
-tb_headers <- c("High Income", "Upper Middle Income", "Lower Middle Income", "Lower Income")
-tb_values <- c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
-class_table <- data.table(
-  Class = c("Low Income", "Lower Middle Income", "Upper Middle Income", "High Income"),
-  GNIperCapita = c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
-)
-class_table
-
 # take out NAs in the dataset 
 LE1 <- na.omit(LE1)
 sum(is.na(LE1$GDP.per.capita))
@@ -66,7 +57,7 @@ view(LE1)
 ggplot(data = LE1) +
   geom_point(mapping = aes(x = logGDP , y = Compulsory.education.duration)) +
   geom_smooth(method = lm,mapping = aes(x = logGDP , y = Compulsory.education.duration), se=FALSE)+
-  ggtitle("                               Scatter Plot ")
+  ggtitle("                               Scatter Plot Compulsory.education.duration and loggdp")
 
 cor(LE1$logGDP,LE1$Compulsory.education.duration, use = "complete.obs")
 
@@ -75,7 +66,7 @@ cor(LE1$logGDP,LE1$Compulsory.education.duration, use = "complete.obs")
 ggplot(data = LE1) +
   geom_point(mapping = aes(y = GDP.per.capita , x = Current.health.expenditure.per.capita)) +
   geom_smooth(method = lm,mapping = aes(y = GDP.per.capita , x = Current.health.expenditure.per.capita), se=FALSE)+
-  ggtitle("                               Scatter Plot ")
+  ggtitle("                               Scatter Plot GDP.per.capita and Current.health.expenditure.per.capita")
 
 cor(LE1$logGDP,LE1$Current.health.expenditure.per.capita, use = "complete.obs")
 
@@ -84,7 +75,7 @@ cor(LE1$logGDP,LE1$Current.health.expenditure.per.capita, use = "complete.obs")
 ggplot(data = LE1) +
   geom_point(mapping = aes(x = logHCExpCapita , y = logGDP)) +
   geom_smooth(method = lm,mapping = aes(x = logHCExpCapita , y = logGDP), se=FALSE)+
-  ggtitle("                               Scatter Plot ")
+  ggtitle("                               Scatter Plot Current.health.expenditure.per.capita and logGDP")
 
 cor(LE1$logGDP,LE1$logHCExpCapita, use = "complete.obs")
 
@@ -94,10 +85,20 @@ cor(LE1$logGDP,LE1$logHCExpCapita, use = "complete.obs")
 ggplot(data = LE1) +
   geom_point(mapping = aes(x = Life.expectancy , y = logGDP)) +
   geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = logGDP), se=FALSE)+
-  ggtitle("                               Scatter Plot ")
+  ggtitle("                               Scatter Plot  life expectancy and logGDP")
 
 
 cor(LE1$Life.expectancy,LE1$logGDP, use = "complete.obs")
+
+# visualizing correlation between birth rate and life expectancy
+ggplot(data = LE1) +
+  geom_point(mapping = aes(x = Life.expectancy , y = Birth.rate.p1000)) +
+  geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = Birth.rate.p1000), se=FALSE)+
+  ggtitle("                               Scatter Plot birth rate and life expectancy")
+
+cor(LE1$Life.expectancy,LE1$Birth.rate.p1000, use = "complete.obs")
+
+
 
 # lm model with summary of log GDP and Life expenctancy 
 edulm<-lm(LE1$logGDP~LE1$Life.expectancy)
