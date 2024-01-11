@@ -12,14 +12,14 @@ library(tidyr)
 library(tidymodels)
 library(tidyr)
 library(modelr)
-setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
+#setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
 #read in country data  
-LE1<- read_csv("countrydata.csv")
+LE1<- read_csv("https://raw.githubusercontent.com/josh-greene-54/IDS-proj-grp/data/countrydata.csv", TRUE)
 view(LE1)
 
 
 # read in income class data 
-incomeclass<- read_csv("incomeclass.csv")
+incomeclass<- read_csv("https://raw.githubusercontent.com/josh-greene-54/IDS-proj-grp/data/incomeclass.csv", TRUE)
 view(incomeclass)
 
 # take out NAs in the dataset 
