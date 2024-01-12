@@ -13,6 +13,8 @@ library(tidymodels)
 library(tidyr)
 library(modelr)
 library(rpart.plot)
+library(estimatr)
+library(robust)
 
 setwd("/Users/abigailtata/Desktop/inst doe DS/country data ")
 #read in country data  
@@ -37,8 +39,6 @@ LE1 <- LE1 %>%
     Current.health.expenditure.per.gdp = as.numeric(as.character(Current.health.expenditure.per.gdp)),
     Current.health.expenditure.per.capita = as.numeric(as.character(Current.health.expenditure.per.capita)),
     Compulsory.education.duration = as.numeric(as.character(Compulsory.education.duration )),
-    Birth.rate.p1000  = as.numeric(as.character(Birth.rate.p1000 )),
-    Death.rate.p1000 = as.numeric(as.character(Death.rate.p1000 ))
 )
 
 
@@ -55,7 +55,7 @@ view(LE1)
 
 # scatter plot of Compulsory.education.duration and loggdp
 ggplot(data = LE1) +
-  geom_point(mapping = aes(x = logGDP , y = Compulsory.education.duration)) +
+  geom_point(mapping = aes(x = GDP.per.capita , y = Compulsory.education.duration)) +
   geom_smooth(method = lm,mapping = aes(x = logGDP , y = Compulsory.education.duration), se=FALSE)+
   ggtitle("                               Scatter Plot Compulsory.education.duration and loggdp")
 
@@ -64,8 +64,8 @@ cor(LE1$logGDP,LE1$Compulsory.education.duration, use = "complete.obs")
 
 #view GDP.per.capita and Current.health.expenditure.per.capita
 ggplot(data = LE1) +
-  geom_point(mapping = aes(y = GDP.per.capita , x = Current.health.expenditure.per.capita)) +
-  geom_smooth(method = lm,mapping = aes(y = GDP.per.capita , x = Current.health.expenditure.per.capita), se=FALSE)+
+  geom_point(mapping = aes(y = Current.health.expenditure.per.capita , x = GDP.per.capita)) +
+  geom_smooth(method = lm,mapping = aes(x = GDP.per.capita , y = Current.health.expenditure.per.capita), se=FALSE)+
   ggtitle("                               Scatter Plot GDP.per.capita and Current.health.expenditure.per.capita")
 
 cor(LE1$logGDP,LE1$Current.health.expenditure.per.capita, use = "complete.obs")
@@ -73,8 +73,8 @@ cor(LE1$logGDP,LE1$Current.health.expenditure.per.capita, use = "complete.obs")
 
 #### view Current.health.expenditure.per.capita and logGDP
 ggplot(data = LE1) +
-  geom_point(mapping = aes(x = logHCExpCapita , y = logGDP)) +
-  geom_smooth(method = lm,mapping = aes(x = logHCExpCapita , y = logGDP), se=FALSE)+
+  geom_point(mapping = aes(y = logHCExpCapita , x = logGDP)) +
+  geom_smooth(method = lm,mapping = aes(y = logHCExpCapita , x = logGDP), se=FALSE)+
   ggtitle("                               Scatter Plot Current.health.expenditure.per.capita and logGDP")
 
 cor(LE1$logGDP,LE1$logHCExpCapita, use = "complete.obs")
@@ -83,20 +83,12 @@ cor(LE1$logGDP,LE1$logHCExpCapita, use = "complete.obs")
 
 #### view life expectancy and logGDP
 ggplot(data = LE1) +
-  geom_point(mapping = aes(x = Life.expectancy , y = logGDP)) +
-  geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = logGDP), se=FALSE)+
+  geom_point(mapping = aes(y = Life.expectancy , x = logGDP)) +
+  geom_smooth(method = lm,mapping = aes(x = logGDP , y = Life.expectancy), se=FALSE)+
   ggtitle("                  Scatter Plot  life expectancy and logGDP")
 
 
 cor(LE1$Life.expectancy,LE1$logGDP, use = "complete.obs")
-
-# visualizing correlation between birth rate and life expectancy
-ggplot(data = LE1) +
-  geom_point(mapping = aes(x = Life.expectancy , y = Birth.rate.p1000)) +
-  geom_smooth(method = lm,mapping = aes(x = Life.expectancy , y = Birth.rate.p1000), se=FALSE)+
-  ggtitle("              Scatter Plot birth rate and life expectancy")
-
-cor(LE1$Life.expectancy,LE1$Birth.rate.p1000, use = "complete.obs")
 
 
 
@@ -106,6 +98,12 @@ edulm
 summary(edulm)
 plot(edulm)
 
+model <- lm_robust(Life.expectancy ~ logGDP, data = LE1)
+# Print the summary of the model
+#with robust standard errors 
+summary(model)
+plot(model)
+
 #use cook distance package to show the 61 and 64 outliers and their SD
 
 # boxplot to see outliers 
@@ -113,42 +111,9 @@ boxplot(LE1$logGDP)
 boxplot(LE1$Life.expectancy)
 #significant amount of outliers in gdp
 
-
-
-# merge both data sets to be able to look at class in LE1
-merged_df <- merge(incomeclass, LE1, by = "Country.Name")
-view(merged_df)
-
-
-
-# mutate class variable to long name and get rid of GDPrange
-
-merged_df <- merged_df %>%
-  select(-GDPrange)
-merged_df <- merged_df %>%
-  mutate(class = case_when(
-    class == "L" ~ "Lower Income",
-    class == "LM" ~ "Lower Middle Income",
-    class == "UM" ~ " Upper Middle Income",
-    class == "H" ~ "High Income"
-  ))
-
-view(merged_df)
-str(merged_df)
-
 #summary stats of the merged data set 
 lm_out <- lm(Life.expectancy ~ logGDP, data = merged_df)
 summary(lm_out)
-
-#Table of income classification info
-tb_headers <- c("High Income", "Upper Middle Income", "Lower Middle Income", "Lower Income")
-tb_values <- c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
-class_table <- data.frame(
-  Class = c("Low Income", "Lower Middle Income", "Upper Middle Income", "High Income"),
-  GNI = c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
-)
-class_table
-
 
 #add residuals to data set 
 merged_df <- merged_df %>%
@@ -180,26 +145,13 @@ summary(anova_result)
 
 # multiple linear regression exploration
 
-model1 <- lm(Life.expectancy ~ logGDP + logHCExpCapita + Birth.rate.p1000 + Death.rate.p1000+ Population + Compulsory.education.duration, data = merged_df)
-
-model2 <- lm(Life.expectancy ~  Birth.rate.p1000 + Death.rate.p1000, data = merged_df)
+model1 <- lm(Life.expectancy ~ logGDP + logHCExpCapita+ Population + Compulsory.education.duration, data = merged_df)
 
 model3 <- lm(Life.expectancy ~ logGDP + logHCExpCapita, data = merged_df)
 
 # Display the summary of the model
 summary(model1)
-summary(model2)
 summary(model3)
-
-# looking at the multiple linear regression we are seeing that with all of the independent variables 
-#together LogGDP is not considered to be significant, instead, logHCExpCapita,Birth.rate.p1000 and Death.rate.p1000 
-#are the only significant ones. when logGDP and logHCExpCapita are alone in a model theyre both significant
-#this goes to show that although logGDP has a strong correlation with life expectancy in isolation, with other variables
-#it does not appear to have a significant relationship with life expectancy. 
-#this could be due to confounding variables or multicollinearity.
-
-
-#machine learning to try to predict life expectancy from loggdp
 
 set.seed(123)  # Setting a seed for reproducibility
 split <- initial_split(merged_df, prop = 0.7, strata = Life.expectancy)
@@ -212,52 +164,26 @@ tree_model <- decision_tree() %>%
   set_mode("regression")
 
 # Train the model
-trained_model <- tree_model %>% fit(Life.expectancy ~ logGDP, data = train_data)
-
+trained_model <- tree_model %>% fit(Life.expectancy ~ logGDP+logHCExpCapita, data = train_data)
 # Make predictions on the test set
 predictions <- predict(trained_model, new_data = test_data)
-
 # View the predictions
 print(predictions)
-
-# try a logGDP prediction 
-#new_data <- data.frame(logGDP = 11)
-#new_predictions <- predict(trained_model, new_data)
-#GDP<-exp(new_data)
-#GDP
-
-#show decision tree
-#print(new_predictions)
-
 #visualize tree
 rpart.plot(trained_model$fit, roundint = FALSE)
 
-
-predict_gdp <- function(trained_model, log_gdp_value) {
-  new_data <- data.frame(logGDP=log_gdp_value)
+predict_life_expectancy <- function(trained_model, log_gdp_value, log_hc_exp_value) {
+  new_data <- data.frame(logGDP = log_gdp_value, logHCExpCapita = log_hc_exp_value)
   new_predictions <- predict(trained_model, new_data)
   new_predictions <- as.numeric(new_predictions[[1]])
   GDP <- exp(log_gdp_value)
   cat(" Countrys GDP", GDP, "\n")
-  cat( "Average life expectancy" ,new_predictions, "\n")
-  return(list(GDP=GDP, Predictions=new_predictions ))
+  cat("Predicted Average Life Expectancy:", new_predictions, "\n")
+  return(list(PredictedLifeExpectancy = new_predictions))
 }
-log_gdp_value <- 2
-new_data <- data.frame(log_gdp_value)
-predicted_gdp <- predict_gdp(trained_model, log_gdp_value)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#input values
+log_gdp_value <- 11
+log_hc_exp_value <- 10
+predicted_life_expectancy <- predict_life_expectancy(trained_model, log_gdp_value, log_hc_exp_value)
 
 
