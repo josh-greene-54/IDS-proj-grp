@@ -140,6 +140,16 @@ str(merged_df)
 lm_out <- lm(Life.expectancy ~ logGDP, data = merged_df)
 summary(lm_out)
 
+#Table of income classification info
+tb_headers <- c("High Income", "Upper Middle Income", "Lower Middle Income", "Lower Income")
+tb_values <- c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
+class_table <- data.frame(
+  Class = c("Low Income", "Lower Middle Income", "Upper Middle Income", "High Income"),
+  GNI = c("<= 995", "996-3,895", "3,896-12,055", ">12,055")
+)
+class_table
+
+
 #add residuals to data set 
 merged_df <- merged_df %>%
   add_residuals(lm_out)
